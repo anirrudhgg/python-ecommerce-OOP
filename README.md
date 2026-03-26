@@ -43,9 +43,39 @@ The project includes a test suite (unit_test.py) that validates:
 
 (Main Application)
 
-5.3 Run the application: python source_code.py.
+Step 1: View the Catalogue
 
-5.4 To run tests: python unit_test.py.
+Select Option 1 from the main menu.
+
+The system will display all available items (e.g., Gaming Laptop, Antivirus) along with their Product IDs (101, 201, etc.).
+
+Step 2: Add Items to Cart
+
+Select Option 2.
+
+Enter Product ID: Type the specific ID of the item you wish to purchase.
+
+Enter Quantity: Type a positive number.
+
+Note: If you enter a negative number or text, the system will trigger an error message and return you to the menu.
+
+Step 3: Checkout
+
+Select Option 3 to finalize your purchase.
+
+The system will print a receipt with the following logic:
+
+Physical Items: Displays base price plus calculated shipping costs.
+
+Digital Items: Displays base price minus a 10% bulk discount if you purchased 5 or more units.
+
+The Grand Total will be displayed.
+
+Step 4: Troubleshooting
+
+Invalid Input: Ensure you use numbers (1, 2, 3, 4) for all menu selections.
+
+Window Closes: If the program exits too quickly, run it through an IDE like VS Code or via the terminal.
 
 7. Credits
 
