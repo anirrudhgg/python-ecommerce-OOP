@@ -34,6 +34,10 @@ The project includes a test suite (unit_test.py) that validates:
 
 4.2 Accurate 10% discount application for bulk digital purchases.
 
+4.3 Example of Shipping Calculation: The cost of 2 laptops comes to $2100.00 including shipping costs
+
+4.4 Example of Bulk Discounts: The cost of 5 digital E-Books comes to $90.00 including the 10% discount costs
+
 5. How to Run
 
 (Prerequisites)
