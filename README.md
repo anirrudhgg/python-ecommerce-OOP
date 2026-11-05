@@ -29,7 +29,7 @@ StoreApp
 └── show_catalog(), add_to_cart(), checkout(), run()   console interface
 ```
 
-A UML diagram and the full documentation are in `Documentation/`.
+A hand-drawn UML diagram of the class hierarchy is in `Documentation/UML Diagram.png`.
 
 ## Getting started
 
@@ -57,7 +57,7 @@ Menu options: `1` view catalog, `2` add an item (product ID, then quantity), `3`
 ```
 ├── src/store.py            Product classes and the store application
 ├── tests/test_store.py     Unit tests
-└── Documentation/          UML diagram and project documentation
+└── Documentation/          UML diagram
 ```
 
 ## Team
