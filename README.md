@@ -1,88 +1,66 @@
-Python E-Commerce System (Object Oriented Programming)
+# Python E-Commerce System (OOP)
 
-1. Project Overview
-This project is a text-based shopping cart simulator designed to demonstrate Object-Oriented Programming (OOP) principles in Python.
-The system handles a product catalog with different logic for physical and digital goods.
+A text-based shopping cart that demonstrates object-oriented design in Python: a product hierarchy with different pricing rules for physical and digital goods, business logic kept separate from the console interface, and a unit test suite.
 
-2. Key Features
+## Features
 
-2.1 Dynamic Pricing: Automatically calculates costs based on item type—adding shipping for physical goods or applying bulk discounts for digital ones.
+- **Inheritance and polymorphism:** `PhysicalProduct` and `DigitalProduct` extend `Product` and override `get_price()`:
+  - physical goods add a shipping cost per item
+  - digital goods get a 10% bulk discount from 5 items
+- **Exact money arithmetic:** prices use `Decimal` and are rounded to whole cents, so totals never show float errors like `0.30000000000000004`
+- **O(1) product lookup:** the inventory is a dictionary keyed by product ID
+- **Testable design:** `add_item()` and `cart_total()` contain the logic and raise `ValueError` for invalid input; the console methods only handle input and output
+- **Input validation:** unknown IDs, zero or negative quantities and non-numeric input are rejected without crashing
 
-2.2 Inventory Management: Uses a Python Dictionary for O(1) fast lookups of products by ID.
+## Class design
 
-2.3 Robust Input Handling: Prevents system crashes during user interaction by using try/except blocks for data validation.
+```
+Product (product_id, name, price)
+├── get_price(quantity)      price × quantity
+├── PhysicalProduct (+ weight_kg, shipping_cost)
+│   └── get_price(quantity)  + shipping × quantity
+└── DigitalProduct (+ file_size_mb)
+    └── get_price(quantity)  − 10% if quantity ≥ 5
 
-2.4 Unit Tested: Includes a unittest suite to verify shipping and discount logic.
+StoreApp
+├── inventory: dict[str, Product]
+├── cart: list[(Product, quantity)]
+├── add_item(), cart_total()               business logic
+└── show_catalog(), add_to_cart(), checkout(), run()   console interface
+```
 
-3. OOP Architecture
+A UML diagram and the full documentation are in `Documentation/`.
 
-The system is built on a hierarchical structure to ensure code reusability:
+## Getting started
 
-3.1 Inheritance: A base Product class defines core attributes, while PhysicalProduct and DigitalProduct serve as child classes.
+Requires Python 3.8+ and no extra packages. From the repository root:
 
-3.2 Polymorphism: The get_price(quantity) method is overridden in child classes to handle specific business logic:
+```
+python src/store.py                    # start the store
+python -m unittest discover tests -v   # run the tests
+```
 
-  3.2.1 Physical: Adds a shipping_cost * quantity to the total.
-  
-  3.2.2 Digital: Applies a 10% discount if the quantity is 5 or more.
+Menu options: `1` view catalog, `2` add an item (product ID, then quantity), `3` checkout, `4` exit.
 
-4. Quality Assurance
+## Tests
 
-The project includes a test suite (unit_test.py) that validates:
+`tests/test_store.py` has 12 tests covering:
 
-4.1 Correct shipping calculations for physical items.
+- base price, shipping per item, and the discount just below and at the 5-item threshold
+- rounding to cents and the absence of float errors
+- the total of a mixed cart, and an empty cart
+- rejection of unknown IDs, zero and negative quantities, and text entered as a quantity (simulated with `unittest.mock`)
+- the cart being cleared after checkout
 
-4.2 Accurate 10% discount application for bulk digital purchases.
+## Project structure
 
-4.3 Example of Shipping Calculation: The cost of 2 laptops comes to $2100.00 including shipping costs
+```
+├── src/store.py            Product classes and the store application
+├── tests/test_store.py     Unit tests
+└── Documentation/          UML diagram and project documentation
+```
 
-4.4 Example of Bulk Discounts: The cost of 5 digital E-Books comes to $90.00 including the 10% discount costs
+## Team
 
-5. How to Run
-
-(Prerequisites)
-5.1 Ensure you have Python 3.6 or higher installed.
-
-5.2 Keep source_code.py and unit_test.py in the same directory.
-
-(Main Application)
-
-Step 1: View the Catalogue
-
-Select Option 1 from the main menu.
-
-The system will display all available items (e.g., Gaming Laptop, Antivirus) along with their Product IDs (101, 201, etc.).
-
-Step 2: Add Items to Cart
-
-Select Option 2.
-
-Enter Product ID: Type the specific ID of the item you wish to purchase.
-
-Enter Quantity: Type a positive number.
-
-Note: If you enter a negative number or text, the system will trigger an error message and return you to the menu.
-
-Step 3: Checkout
-
-Select Option 3 to finalize your purchase.
-
-The system will print a receipt with the following logic:
-
-Physical Items: Displays base price plus calculated shipping costs.
-
-Digital Items: Displays base price minus a 10% bulk discount if you purchased 5 or more units.
-
-The Grand Total will be displayed.
-
-Step 4: Troubleshooting
-
-Invalid Input: Ensure you use numbers (1, 2, 3, 4) for all menu selections.
-
-Window Closes: If the program exits too quickly, run it through an IDE like VS Code or via the terminal.
-
-7. Credits
-
-Anirudh Gopishankar 
-
-Yohan Amaratunga
+- Anirudh Gopishankar
+- Yohan Amaratunga
